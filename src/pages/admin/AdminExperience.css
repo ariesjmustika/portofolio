@@ -1,0 +1,129 @@
+.admin-experience .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+.experience-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.experience-item-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color, var(--bg-tertiary));
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+}
+
+.experience-item-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.exp-info h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.exp-duration {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.exp-desc {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  max-width: 600px;
+}
+
+.exp-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.skill-tag {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color, var(--bg-tertiary));
+  border-radius: 999px;
+  color: var(--text-secondary);
+}
+
+.exp-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color, var(--bg-tertiary));
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-btn.edit:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background-color: var(--accent-glow);
+}
+
+.icon-btn.delete:hover {
+  color: #ef4444;
+  border-color: #fecaca;
+  background-color: #fee2e2;
+}
+
+.cancel-btn {
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: 1px solid var(--border-color, var(--bg-tertiary));
+  color: var(--text-secondary);
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.cancel-btn:hover {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.mb-8 { margin-bottom: 2rem; }
+.mt-6 { margin-top: 1.5rem; }

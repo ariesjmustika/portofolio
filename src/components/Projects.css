@@ -49,6 +49,17 @@
   flex-grow: 1;
 }
 
+.project-duration {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+
 .project-tech {
   display: flex;
   flex-wrap: wrap;
@@ -57,7 +68,21 @@
 }
 
 .project-tech-item {
+  font-size: 0.8rem;
   font-family: var(--font-heading);
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--accent);
+  background-color: color-mix(in srgb, var(--accent) 10%, transparent);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  transition: all 0.3s ease;
 }
+
+
+.project-tech-item:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+}
+
+

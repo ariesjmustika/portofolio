@@ -1,43 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Code } from 'lucide-react';
+import { ExternalLink, Code, Loader2, Calendar } from 'lucide-react';
+import { supabase } from '../lib/supabaseClient';
 import './Projects.css';
 
 const Projects = () => {
-  const projects = [
-    {
-      id: 1,
-      title: "E-Commerce Dashboard",
-      description: "A comprehensive admin dashboard for e-commerce platforms. Features real-time sales tracking, inventory management, and analytics visualization.",
-      techStack: ["React", "Redux", "TailwindCSS", "Chart.js"],
-      githubUrl: "#",
-      liveUrl: "#"
-    },
-    {
-      id: 2,
-      title: "Task Management App",
-      description: "A collaborative project management tool with real-time updates, drag-and-drop kanban boards, and team chat capabilities.",
-      techStack: ["Next.js", "Socket.io", "MongoDB", "Framer Motion"],
-      githubUrl: "#",
-      liveUrl: "#"
-    },
-    {
-      id: 3,
-      title: "AI Content Generator",
-      description: "A SaaS platform leveraging OpenAI API to generate marketing copy, blog posts, and social media content automatically.",
-      techStack: ["React", "Node.js", "OpenAI API", "Stripe"],
-      githubUrl: "#",
-      liveUrl: "#"
-    },
-    {
-      id: 4,
-      title: "Crypto Tracker",
-      description: "A real-time cryptocurrency tracking application featuring live price updates, portfolio management, and market news.",
-      techStack: ["React", "TypeScript", "CoinGecko API"],
-      githubUrl: "#",
-      liveUrl: "#"
-    }
-  ];
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('projects')
+          .select('*')
+          .order('sort_order', { ascending: true });
+
+        if (error) throw error;
+        setProjects(data || []);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -57,6 +46,16 @@ const Projects = () => {
       transition: { type: "spring", stiffness: 100, damping: 15 }
     }
   };
+
+  if (loading) {
+    return (
+      <div className="section-loading">
+        <Loader2 className="animate-spin" size={40} />
+      </div>
+    );
+  }
+
+  if (projects.length === 0) return null;
 
   return (
     <section id="projects" className="section projects-section">
@@ -97,30 +96,44 @@ const Projects = () => {
                   <ExternalLink size={32} />
                 </div>
                 <div className="project-links">
-                  <motion.a 
-                    href={project.githubUrl} 
-                    className="project-link" 
-                    aria-label="Source Code"
-                    whileHover={{ y: -2, color: "var(--accent)" }}
-                  >
-                    <Code size={20} />
-                  </motion.a>
-                  <motion.a 
-                    href={project.liveUrl} 
-                    className="project-link" 
-                    aria-label="Live Demo Link"
-                    whileHover={{ y: -2, color: "var(--accent)" }}
-                  >
-                    <ExternalLink size={20} />
-                  </motion.a>
+                  {project.github_link && (
+                    <motion.a 
+                      href={project.github_link} 
+                      className="project-link" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Source Code"
+                      whileHover={{ y: -2, color: "var(--accent)" }}
+                    >
+                      <Code size={20} />
+                    </motion.a>
+                  )}
+                  {project.live_link && (
+                    <motion.a 
+                      href={project.live_link} 
+                      className="project-link" 
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Live Demo Link"
+                      whileHover={{ y: -2, color: "var(--accent)" }}
+                    >
+                      <ExternalLink size={20} />
+                    </motion.a>
+                  )}
                 </div>
               </div>
               
               <h3 className="project-title">{project.title}</h3>
+              {project.duration && (
+                <div className="project-duration">
+                  <Calendar size={14} /> <span>{project.duration}</span>
+                </div>
+              )}
               <p className="project-desc">{project.description}</p>
+
               
               <div className="project-tech">
-                {project.techStack.map(tech => (
+                {project.tags?.map(tech => (
                   <motion.span 
                     key={tech} 
                     className="project-tech-item"
@@ -139,3 +152,4 @@ const Projects = () => {
 };
 
 export default Projects;
+

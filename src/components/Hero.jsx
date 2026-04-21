@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, Download, Loader2 } from 'lucide-react';
+import { supabase } from '../lib/supabaseClient';
 import './Hero.css';
 
 const Hero = () => {
+  const [content, setContent] = useState({
+    greeting: 'Hello, I am',
+    name: 'Aries Jakaradytia Mustika.',
+    role: 'Fullstack Developer',
+    description: 'I build exceptional and accessible digital experiences for the web. With over 4 years of experience, I specialize in crafting robust, scalable, and eye-catching applications.',
+    ctaText: 'View Work',
+    ctaLink: '#projects'
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchHeroData = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('portfolio_content')
+          .select('value')
+          .eq('key', 'hero_section')
+          .single();
+
+        if (error && error.code !== 'PGRST116') throw error;
+        if (data) setContent(data.value);
+      } catch (error) {
+        console.error('Error fetching hero data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHeroData();
+  }, []);
+
   // Staggering container variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -25,48 +57,51 @@ const Hero = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="hero-loading">
+        <Loader2 className="animate-spin" size={40} />
+      </div>
+    );
+  }
+
   return (
     <section id="about" className="hero-section">
       <div className="container hero-container">
-        {/* Entrance staggered animations */}
         <motion.div 
           className="hero-content"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {/* Continuous floating animation */}
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ 
               repeat: Infinity, 
               duration: 5, 
               ease: "easeInOut",
-              delay: 1 // Start shortly after entrance
+              delay: 1
             }}
           >
             <motion.span className="text-accent hero-subtitle" variants={itemVariants}>
-              Hello, I am
+              {content.greeting}
             </motion.span>
             
             <motion.h1 className="heading-xl hero-title" variants={itemVariants}>
-              Aries Jakaradytia<br />
-              <span className="text-gradient">Mustika.</span>
+              {content.name}
             </motion.h1>
             
             <motion.h2 className="heading-md hero-role" variants={itemVariants}>
-              Fullstack Developer
+              {content.role}
             </motion.h2>
             
             <motion.p className="hero-desc" variants={itemVariants}>
-              I build exceptional and accessible digital experiences for the web. 
-              With over 4 years of experience, I specialize in crafting robust, 
-              scalable, and eye-catching applications.
+              {content.description}
             </motion.p>
             
             <motion.div className="hero-actions" variants={itemVariants}>
               <motion.a 
-                href="#projects" 
+                href={content.ctaLink}
                 className="btn btn-primary hero-btn"
                 whileHover={{ 
                   scale: 1.05, 
@@ -75,11 +110,13 @@ const Hero = () => {
                 }}
                 whileTap={{ scale: 0.95 }}
               >
-                View Work <ArrowRight size={18} />
+                {content.ctaText} <ArrowRight size={18} />
               </motion.a>
               <motion.a 
-                href="/resume.pdf" 
+                href="/cv.pdf" 
                 className="btn btn-outline hero-btn"
+                download="Aries_Jakardytia_Mustika_CV.pdf"
+
                 whileHover={{ 
                   scale: 1.05, 
                   boxShadow: "0 0 20px rgba(255,255,255,0.1)",
@@ -96,7 +133,6 @@ const Hero = () => {
         </motion.div>
       </div>
       
-      {/* Decorative Elements */}
       <motion.div 
         className="hero-glow"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -108,3 +144,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

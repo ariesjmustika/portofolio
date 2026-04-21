@@ -1,0 +1,168 @@
+.messages-toolbar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.search-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-wrapper svg {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-secondary);
+}
+
+.search-wrapper input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--bg-tertiary);
+  border-radius: 0.75rem;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.search-wrapper input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.refresh-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--bg-tertiary);
+  border-radius: 0.75rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.refresh-btn:hover:not(:disabled) {
+  background-color: var(--bg-tertiary);
+}
+
+.messages-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.message-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--bg-tertiary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.message-card:hover {
+  border-color: var(--bg-tertiary);
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.sender-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.sender-avatar {
+  width: 45px;
+  height: 45px;
+  background: var(--accent-glow);
+  color: var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.sender-info h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.sender-email {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.message-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.message-date {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.message-body {
+  padding: 1rem;
+  background-color: var(--bg-primary);
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+}
+
+.loading-state, .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem;
+  color: var(--text-secondary);
+  text-align: center;
+  gap: 1rem;
+}
+
+.error-alert {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 0.75rem;
+  color: #ef4444;
+  margin-bottom: 2rem;
+}

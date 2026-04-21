@@ -1,35 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar } from 'lucide-react';
+import { Briefcase, Calendar, Loader2 } from 'lucide-react';
+import { supabase } from '../lib/supabaseClient';
 import './Experience.css';
 
 const Experience = () => {
-  const experiences = [
-    {
-      id: 1,
-      role: "Senior Fullstack Developer",
-      company: "Tech Innovators Inc.",
-      duration: "2023 - Present",
-      description: "Leading the development of highly scalable enterprise web applications. Architected responsive frontend solutions using React and robust backend APIs with Node.js.",
-      techStack: ["React", "Node.js", "MongoDB", "AWS"]
-    },
-    {
-      id: 2,
-      role: "Fullstack Developer",
-      company: "Digital Solutions LLC",
-      duration: "2020 - 2023",
-      description: "Developed and maintained full-stack web applications. Improved application performance by 40% through code optimization and efficient database queries.",
-      techStack: ["Vue.js", "Express", "PostgreSQL", "Docker"]
-    },
-    {
-      id: 3,
-      role: "Frontend Developer",
-      company: "Creative Web Agency",
-      duration: "2019 - 2020",
-      description: "Collaborated with designers to build pixel-perfect, interactive, and eye-catching landing pages for various clients.",
-      techStack: ["HTML/CSS", "JavaScript", "React", "Figma"]
-    }
-  ];
+  const [experiences, setExperiences] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchExperiences = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('experience')
+          .select('*')
+          .order('sort_order', { ascending: true });
+
+        if (error) throw error;
+        setExperiences(data || []);
+      } catch (error) {
+        console.error('Error fetching experiences:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExperiences();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="section-loading">
+        <Loader2 className="animate-spin" size={40} />
+      </div>
+    );
+  }
+
+  if (experiences.length === 0) return null;
 
   return (
     <section id="experience" className="section experience-section">
@@ -43,7 +50,7 @@ const Experience = () => {
           <h2 className="heading-lg section-title">
             <span className="text-accent">01.</span> Experience
           </h2>
-          <p className="section-subtitle">Over 4 years of professional journey</p>
+          <p className="section-subtitle">Over {new Date().getFullYear() - 2021} years of professional journey</p>
         </motion.div>
 
         <div className="experience-timeline">
@@ -97,7 +104,7 @@ const Experience = () => {
                 <p className="timeline-desc">{exp.description}</p>
                 
                 <div className="timeline-tech">
-                  {exp.techStack.map(tech => (
+                  {exp.skills?.map(tech => (
                     <motion.span 
                       key={tech} 
                       className="tech-badge"
@@ -117,3 +124,4 @@ const Experience = () => {
 };
 
 export default Experience;
+

@@ -110,11 +110,20 @@
   font-size: 0.8rem;
   font-family: var(--font-heading);
   color: var(--accent);
-  background-color: rgba(0, 240, 255, 0.1);
+  background-color: color-mix(in srgb, var(--accent) 10%, transparent);
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-  border: 1px solid rgba(0, 240, 255, 0.2);
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  transition: all 0.3s ease;
 }
+
+
+.tech-badge:hover {
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+}
+
 
 @media (max-width: 640px) {
   .timeline-header {

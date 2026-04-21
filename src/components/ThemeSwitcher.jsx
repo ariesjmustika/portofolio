@@ -3,7 +3,7 @@ import { Palette, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './ThemeSwitcher.css';
 
-const themes = [
+export const themes = [
   {
     id: 'midnight',
     name: 'Midnight Cyber',
@@ -66,20 +66,21 @@ const themes = [
   }
 ];
 
+
 const ThemeSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeTheme, setActiveTheme] = useState('midnight');
+  const [activeTheme, setActiveTheme] = useState('light');
+
 
   // Load saved theme on initial mount
   useEffect(() => {
-    const savedThemeId = localStorage.getItem('portfolio-theme');
-    if (savedThemeId) {
-      const theme = themes.find(t => t.id === savedThemeId);
-      if (theme) {
-        applyTheme(theme);
-        setActiveTheme(theme.id);
-      }
+    const savedThemeId = localStorage.getItem('portfolio-theme') || 'light';
+    const theme = themes.find(t => t.id === savedThemeId);
+    if (theme) {
+      applyTheme(theme);
+      setActiveTheme(theme.id);
     }
+
   }, []);
 
   const applyTheme = (theme) => {

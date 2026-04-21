@@ -1,0 +1,72 @@
+.projects-list-admin {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-admin-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color, var(--bg-tertiary));
+  border-radius: 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.project-admin-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-5px);
+}
+
+.project-admin-img {
+  height: 160px;
+  background-color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-color, var(--bg-tertiary));
+}
+
+.project-admin-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-admin-img .placeholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.project-admin-info {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-admin-info h4 {
+  font-size: 1rem;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.project-admin-links {
+  display: flex;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.project-admin-actions {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color, var(--bg-tertiary));
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  background-color: var(--bg-tertiary);
+}

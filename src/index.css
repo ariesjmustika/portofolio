@@ -22,6 +22,23 @@
   --nav-height: 80px;
 }
 
+/* Admin Light Mode Theme */
+.admin-theme {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f5f9;
+  
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  
+  --accent: #0f172a; /* Darker accent for light mode */
+  --accent-glow: rgba(15, 23, 42, 0.05);
+  --accent-hover: #1e293b;
+  
+  --border-color: #e2e8f0;
+}
+
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -149,3 +166,31 @@ a {
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--bg-tertiary);
 }
+
+/* Loading Screen */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-primary);
+  z-index: 9999;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--bg-tertiary);
+  border-bottom-color: var(--accent);
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
