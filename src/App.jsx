@@ -14,8 +14,10 @@ import AdminMessages from './pages/admin/AdminMessages';
 import AdminHero from './pages/admin/AdminHero';
 import AdminExperience from './pages/admin/AdminExperience';
 import AdminProjects from './pages/admin/AdminProjects';
+import NotFound from './pages/NotFound';
 
 import './App.css';
+
 
 function App() {
   return (
@@ -40,7 +42,8 @@ function App() {
 
 
           {/* Catch-all */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFound />} />
+
         </Routes>
       </Router>
     </AuthProvider>
