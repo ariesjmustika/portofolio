@@ -1,0 +1,72 @@
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--nav-height);
+}
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero-subtitle {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.hero-title {
+  margin-bottom: 0.5rem;
+}
+
+.hero-role {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.hero-desc {
+  color: var(--text-secondary);
+  font-size: 1.125rem;
+  max-width: 600px;
+  margin-bottom: 2.5rem;
+  line-height: 1.8;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Background Glow Effect */
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--hero-glow-color, rgba(0,240,255,0.15)) 0%, rgba(0,0,0,0) 70%);
+  transform: translateY(-50%);
+  border-radius: 50%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .hero-glow {
+    width: 400px;
+    height: 400px;
+    right: -20%;
+  }
+}

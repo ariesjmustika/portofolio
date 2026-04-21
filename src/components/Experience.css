@@ -1,0 +1,124 @@
+.experience-section {
+  position: relative;
+}
+
+.section-title {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 4rem;
+}
+
+.experience-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  max-width: 800px;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timeline-dot {
+  width: 16px;
+  height: 16px;
+  background-color: var(--bg-primary);
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  margin-top: 0.5rem;
+  box-shadow: 0 0 10px var(--accent-glow);
+  z-index: 2;
+}
+
+.timeline-line {
+  width: 2px;
+  flex-grow: 1;
+  background-color: var(--bg-tertiary);
+  margin-top: 0.5rem;
+}
+
+/* Hide line for last item */
+.timeline-item:last-child .timeline-line {
+  background: linear-gradient(to bottom, var(--bg-tertiary), transparent);
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.timeline-role {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+}
+
+.timeline-duration {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  background-color: color-mix(in srgb, var(--text-primary) 5%, transparent);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+}
+
+.timeline-company {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.timeline-desc {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.timeline-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tech-badge {
+  font-size: 0.8rem;
+  font-family: var(--font-heading);
+  color: var(--accent);
+  background-color: rgba(0, 240, 255, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+@media (max-width: 640px) {
+  .timeline-header {
+    flex-direction: column;
+  }
+}
