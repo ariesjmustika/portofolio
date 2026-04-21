@@ -51,17 +51,40 @@ const Experience = () => {
             <motion.div 
               key={exp.id}
               className="timeline-item"
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 100,
+                damping: 20,
+                delay: index * 0.15 
+              }}
             >
               <div className="timeline-marker">
-                <div className="timeline-dot"></div>
+                <motion.div 
+                  className="timeline-dot"
+                  whileInView={{ 
+                    scale: [1, 1.5, 1],
+                    boxShadow: [
+                      "0 0 0px var(--accent-glow)",
+                      "0 0 20px var(--accent)",
+                      "0 0 10px var(--accent-glow)"
+                    ]
+                  }}
+                  transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+                ></motion.div>
                 <div className="timeline-line"></div>
               </div>
               
-              <div className="card timeline-content">
+              <motion.div 
+                className="card timeline-content"
+                whileHover={{ 
+                  y: -5,
+                  boxShadow: "0 10px 30px -10px var(--accent-glow)",
+                  borderColor: "var(--accent)"
+                }}
+              >
                 <div className="timeline-header">
                   <h3 className="timeline-role">{exp.role}</h3>
                   <div className="timeline-duration">
@@ -75,10 +98,16 @@ const Experience = () => {
                 
                 <div className="timeline-tech">
                   {exp.techStack.map(tech => (
-                    <span key={tech} className="tech-badge">{tech}</span>
+                    <motion.span 
+                      key={tech} 
+                      className="tech-badge"
+                      whileHover={{ scale: 1.1, color: "var(--accent)", borderColor: "var(--accent)" }}
+                    >
+                      {tech}
+                    </motion.span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>

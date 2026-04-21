@@ -39,6 +39,25 @@ const Projects = () => {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { type: "spring", stiffness: 100, damping: 15 }
+    }
+  };
+
   return (
     <section id="projects" className="section projects-section">
       <div className="container">
@@ -54,27 +73,46 @@ const Projects = () => {
           <p className="section-subtitle">Some things I've built</p>
         </motion.div>
 
-        <div className="projects-grid">
-          {projects.map((project, index) => (
+        <motion.div 
+          className="projects-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          {projects.map((project) => (
             <motion.div
               key={project.id}
               className="card project-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              variants={cardVariants}
+              whileHover={{ 
+                y: -12,
+                scale: 1.02,
+                boxShadow: "0 20px 40px -20px var(--accent-glow)",
+                borderColor: "var(--accent)"
+              }}
             >
               <div className="project-header">
                 <div className="project-folder text-accent">
                   <ExternalLink size={32} />
                 </div>
                 <div className="project-links">
-                  <a href={project.githubUrl} className="project-link" aria-label="Source Code">
+                  <motion.a 
+                    href={project.githubUrl} 
+                    className="project-link" 
+                    aria-label="Source Code"
+                    whileHover={{ y: -2, color: "var(--accent)" }}
+                  >
                     <Code size={20} />
-                  </a>
-                  <a href={project.liveUrl} className="project-link" aria-label="Live Demo Link">
+                  </motion.a>
+                  <motion.a 
+                    href={project.liveUrl} 
+                    className="project-link" 
+                    aria-label="Live Demo Link"
+                    whileHover={{ y: -2, color: "var(--accent)" }}
+                  >
                     <ExternalLink size={20} />
-                  </a>
+                  </motion.a>
                 </div>
               </div>
               
@@ -83,12 +121,18 @@ const Projects = () => {
               
               <div className="project-tech">
                 {project.techStack.map(tech => (
-                  <span key={tech} className="project-tech-item">{tech}</span>
+                  <motion.span 
+                    key={tech} 
+                    className="project-tech-item"
+                    whileHover={{ scale: 1.1, color: "var(--accent)" }}
+                  >
+                    {tech}
+                  </motion.span>
                 ))}
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

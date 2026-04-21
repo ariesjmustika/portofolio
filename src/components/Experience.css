@@ -41,7 +41,6 @@
   border: 3px solid var(--accent);
   border-radius: 50%;
   margin-top: 0.5rem;
-  box-shadow: 0 0 10px var(--accent-glow);
   z-index: 2;
 }
 
