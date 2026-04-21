@@ -18,7 +18,28 @@
   bottom: 0;
   z-index: 100;
   transition: transform 0.3s ease, background-color 0.3s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
+
+/* Custom Scrollbar for Sidebar */
+.admin-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.admin-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 10px;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
 
 .sidebar-closed .admin-sidebar {
   transform: translateX(-100%);
