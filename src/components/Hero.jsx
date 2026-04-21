@@ -9,7 +9,7 @@ const Hero = () => {
     greeting: 'Hello, I am',
     name: 'Aries Jakaradytia Mustika.',
     role: 'Fullstack Developer',
-    description: 'I build exceptional and accessible digital experiences for the web. With over 4 years of experience, I specialize in crafting robust, scalable, and eye-catching applications.',
+    description: 'I build exceptional and accessible digital experiences for the web. With over 5 years of experience, I specialize in crafting robust, scalable, and eye-catching applications.',
     ctaText: 'View Work',
     ctaLink: '#projects'
   });
