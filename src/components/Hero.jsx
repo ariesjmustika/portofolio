@@ -57,13 +57,8 @@ const Hero = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="hero-loading" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Loader2 className="animate-spin text-accent" size={40} />
-      </div>
-    );
-  }
+  // We no longer block rendering with a loading spinner to drastically improve LCP.
+  // The initial state already contains the fallback/default content.
 
   return (
     <section id="about" className="hero-section">
