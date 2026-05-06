@@ -2,9 +2,6 @@ import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
-import { LazyMotion } from 'framer-motion';
-
-const loadFeatures = () => import('./framerFeatures.js').then(res => res.default);
 
 // Layouts
 const AdminLayout = React.lazy(() => import('./layouts/AdminLayout'));
@@ -27,9 +24,8 @@ import './App.css';
 function App() {
   return (
     <AuthProvider>
-      <LazyMotion features={loadFeatures} strict>
-        <Router>
-          <Suspense fallback={<div className="loading-screen"><div className="loader"></div></div>}>
+      <Router>
+        <Suspense fallback={<div className="loading-screen"><div className="loader"></div></div>}>
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Home />} />
@@ -52,9 +48,8 @@ function App() {
             <Route path="*" element={<NotFound />} />
 
           </Routes>
-          </Suspense>
-        </Router>
-      </LazyMotion>
+        </Suspense>
+      </Router>
     </AuthProvider>
   );
 }

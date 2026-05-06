@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Palette, X } from 'lucide-react';
-import { m, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import './ThemeSwitcher.css';
 
 export const themes = [
@@ -118,7 +118,7 @@ const ThemeSwitcher = () => {
     <div className="theme-switcher-container">
       <AnimatePresence>
         {isOpen && (
-          <m.div 
+          <motion.div 
             className="theme-panel card"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -146,7 +146,7 @@ const ThemeSwitcher = () => {
                 </button>
               ))}
             </div>
-          </m.div>
+          </motion.div>
         )}
       </AnimatePresence>
 

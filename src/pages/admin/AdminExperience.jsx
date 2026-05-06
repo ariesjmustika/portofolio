@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Trash2, Edit2, Save, X, Loader2, GripVertical } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { supabase } from '../../lib/supabaseClient';
@@ -138,7 +138,7 @@ const AdminExperience = () => {
 
       <AnimatePresence>
         {isEditing && (
-          <m.div 
+          <motion.div 
             className="admin-card mb-8"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
@@ -212,7 +212,7 @@ const AdminExperience = () => {
                 </button>
               </div>
             </form>
-          </m.div>
+          </motion.div>
         )}
       </AnimatePresence>
 
@@ -221,7 +221,7 @@ const AdminExperience = () => {
           <div className="empty-state">No experience items found.</div>
         ) : (
           experiences.map((exp) => (
-            <m.div 
+            <motion.div 
               key={exp.id}
               className="experience-item-card"
               layout
@@ -244,7 +244,7 @@ const AdminExperience = () => {
                   <Trash2 size={18} />
                 </button>
               </div>
-            </m.div>
+            </motion.div>
           ))
         )}
       </div>

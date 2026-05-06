@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Briefcase, Calendar, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 import './Experience.css';
@@ -41,7 +41,7 @@ const Experience = () => {
   return (
     <section id="experience" className="section experience-section">
       <div className="container">
-        <m.div
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -51,11 +51,11 @@ const Experience = () => {
             <span className="text-accent">01.</span> Experience
           </h2>
           <p className="section-subtitle">Over {new Date().getFullYear() - 2021} years of professional journey</p>
-        </m.div>
+        </motion.div>
 
         <div className="experience-timeline">
           {experiences.map((exp, index) => (
-            <m.div 
+            <motion.div 
               key={exp.id}
               className="timeline-item"
               initial={{ opacity: 0, x: -50 }}
@@ -69,7 +69,7 @@ const Experience = () => {
               }}
             >
               <div className="timeline-marker">
-                <m.div 
+                <motion.div 
                   className="timeline-dot"
                   whileInView={{ 
                     scale: [1, 1.5, 1],
@@ -80,11 +80,11 @@ const Experience = () => {
                     ]
                   }}
                   transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
-                ></m.div>
+                ></motion.div>
                 <div className="timeline-line"></div>
               </div>
               
-              <m.div 
+              <motion.div 
                 className="card timeline-content"
                 whileHover={{ 
                   y: -5,
@@ -105,17 +105,17 @@ const Experience = () => {
                 
                 <div className="timeline-tech">
                   {exp.skills?.map(tech => (
-                    <m.span 
+                    <motion.span 
                       key={tech} 
                       className="tech-badge"
                       whileHover={{ scale: 1.1, color: "var(--accent)", borderColor: "var(--accent)" }}
                     >
                       {tech}
-                    </m.span>
+                    </motion.span>
                   ))}
                 </div>
-              </m.div>
-            </m.div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
       </div>

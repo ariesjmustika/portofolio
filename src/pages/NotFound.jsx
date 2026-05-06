@@ -1,5 +1,5 @@
 import React from 'react';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Home, ArrowLeft } from 'lucide-react';
 import './NotFound.css';
@@ -10,32 +10,32 @@ const NotFound = () => {
   return (
     <div className="not-found-page">
       <div className="not-found-content">
-        <m.div
+        <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
           className="error-code"
         >
           404
-        </m.div>
+        </motion.div>
         
-        <m.h1
+        <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
           Oops! Page Not Found
-        </m.h1>
+        </motion.h1>
         
-        <m.p
+        <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
           The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
-        </m.p>
+        </motion.p>
         
-        <m.div 
+        <motion.div 
           className="not-found-actions"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -47,7 +47,7 @@ const NotFound = () => {
           <button onClick={() => navigate('/')} className="btn btn-primary">
             <Home size={18} /> Back to Home
           </button>
-        </m.div>
+        </motion.div>
       </div>
       
       {/* Decorative background elements */}

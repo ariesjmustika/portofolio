@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, Download, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 import './Hero.css';
@@ -63,13 +63,13 @@ const Hero = () => {
   return (
     <section id="about" className="hero-section">
       <div className="container hero-container">
-        <m.div 
+        <motion.div 
           className="hero-content"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <m.div
+          <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ 
               repeat: Infinity, 
@@ -78,24 +78,24 @@ const Hero = () => {
               delay: 1
             }}
           >
-            <m.span className="text-accent hero-subtitle" variants={itemVariants}>
+            <motion.span className="text-accent hero-subtitle" variants={itemVariants}>
               {content.greeting}
-            </m.span>
+            </motion.span>
             
-            <m.h1 className="heading-xl hero-title" variants={itemVariants}>
+            <motion.h1 className="heading-xl hero-title" variants={itemVariants}>
               {content.name}
-            </m.h1>
+            </motion.h1>
             
-            <m.h2 className="heading-md hero-role" variants={itemVariants}>
+            <motion.h2 className="heading-md hero-role" variants={itemVariants}>
               {content.role}
-            </m.h2>
+            </motion.h2>
             
-            <m.p className="hero-desc" variants={itemVariants}>
+            <motion.p className="hero-desc" variants={itemVariants}>
               {content.description}
-            </m.p>
+            </motion.p>
             
-            <m.div className="hero-actions" variants={itemVariants}>
-              <m.a 
+            <motion.div className="hero-actions" variants={itemVariants}>
+              <motion.a 
                 href={content.ctaLink}
                 className="btn btn-primary hero-btn"
                 whileHover={{ 
@@ -106,8 +106,8 @@ const Hero = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 {content.ctaText} <ArrowRight size={18} />
-              </m.a>
-              <m.a 
+              </motion.a>
+              <motion.a 
                 href="/cv.pdf" 
                 className="btn btn-outline hero-btn"
                 download="Aries_Jakardytia_Mustika_CV.pdf"
@@ -122,18 +122,18 @@ const Hero = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 Resume <Download size={18} />
-              </m.a>
-            </m.div>
-          </m.div>
-        </m.div>
+              </motion.a>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
       
-      <m.div 
+      <motion.div 
         className="hero-glow"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 2, ease: "easeOut" }}
-      ></m.div>
+      ></motion.div>
     </section>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Save, Loader2, AlertCircle, CheckCircle } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { supabase } from '../../lib/supabaseClient';
@@ -86,7 +86,7 @@ const AdminHero = () => {
 
   return (
     <div className="admin-hero">
-      <m.div 
+      <motion.div 
         className="admin-card"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -161,7 +161,7 @@ const AdminHero = () => {
             </button>
           </div>
         </form>
-      </m.div>
+      </motion.div>
     </div>
   );
 };
