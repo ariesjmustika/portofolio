@@ -4,15 +4,16 @@ import { Play, AlertTriangle, Database, CheckCircle2, Trash2, Copy, Terminal } f
 import Swal from 'sweetalert2';
 import EditorModule from 'react-simple-code-editor';
 import Prism from 'prismjs';
+
+// KUNCI: Prism harus ada di window SEBELUM panggil komponen bahasa (sql)
+if (typeof window !== 'undefined') {
+  window.Prism = Prism;
+}
+
 import 'prismjs/components/prism-sql';
 import 'prismjs/themes/prism-tomorrow.css';
 import { supabase } from '../../lib/supabaseClient';
 import './AdminDatabase.css';
-
-// Ensure Prism is globally available for the editor component in production
-if (typeof window !== 'undefined') {
-  window.Prism = Prism;
-}
 
 // Handle ESM/CJS interop issues with Vite
 const Editor = EditorModule.default || EditorModule;
