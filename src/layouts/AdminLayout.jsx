@@ -11,7 +11,8 @@ import {
   Palette,
   Home as HomeIcon,
   Briefcase,
-  Layers
+  Layers,
+  Globe
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { themes } from '../components/ThemeSwitcher';
@@ -87,6 +88,10 @@ const AdminLayout = () => {
           <NavLink to="/admin/projects" className={({ isActive }) => isActive ? 'active' : ''}>
             <Layers size={20} />
             <span>Projects</span>
+          </NavLink>
+          <NavLink to="/admin/explorations" className={({ isActive }) => isActive ? 'active' : ''}>
+            <Globe size={20} />
+            <span>Showcases</span>
           </NavLink>
           <NavLink to="/admin/messages" className={({ isActive }) => isActive ? 'active' : ''}>
             <MessageSquare size={20} />
