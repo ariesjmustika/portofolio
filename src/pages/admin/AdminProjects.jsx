@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Plus, Trash2, Edit2, Save, X, Loader2, Link as LinkIcon, Code, Image as ImageIcon } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { supabase } from '../../lib/supabaseClient';
@@ -126,7 +126,7 @@ const AdminProjects = () => {
 
       <AnimatePresence>
         {isEditing && (
-          <motion.div className="admin-card mb-8" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
+          <m.div className="admin-card mb-8" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}>
             <form onSubmit={handleSubmit} className="admin-form">
               <div className="form-grid">
                 <div className="form-group full-width">
@@ -169,7 +169,7 @@ const AdminProjects = () => {
                 <button type="submit" className="save-btn"><Save size={20} /><span>{currentProject.id ? 'Update' : 'Create'}</span></button>
               </div>
             </form>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 

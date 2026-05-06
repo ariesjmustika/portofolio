@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Lock, Mail, Loader2, AlertCircle, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { Turnstile } from '@marsidev/react-turnstile';
@@ -50,7 +50,7 @@ const Login = () => {
 
   return (
     <div className="login-page admin-theme">
-      <motion.div 
+      <m.div 
         className="login-container"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -70,14 +70,14 @@ const Login = () => {
         </div>
 
         {error && (
-          <motion.div 
+          <m.div 
             className="login-error"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
           >
             <AlertCircle size={18} />
             <span>{error}</span>
-          </motion.div>
+          </m.div>
         )}
 
         <form onSubmit={handleSubmit} className="login-form">
@@ -130,7 +130,7 @@ const Login = () => {
             )}
           </button>
         </form>
-      </motion.div>
+      </m.div>
     </div>
   );
 };

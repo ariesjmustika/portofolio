@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Trash2, Mail, User, Clock, Search, AlertCircle, Loader2 } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { supabase } from '../../lib/supabaseClient';
@@ -115,7 +115,7 @@ const AdminMessages = () => {
         <div className="messages-list">
           <AnimatePresence>
             {filteredMessages.map((msg) => (
-              <motion.div 
+              <m.div 
                 key={msg.id}
                 className="message-card"
                 initial={{ opacity: 0, x: -20 }}
@@ -150,7 +150,7 @@ const AdminMessages = () => {
                 <div className="message-body">
                   <p>{msg.message}</p>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </AnimatePresence>
         </div>

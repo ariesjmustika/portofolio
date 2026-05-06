@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Mail, Code, Briefcase, MessageSquare, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { supabase } from '../lib/supabaseClient';
@@ -64,7 +64,7 @@ const Contact = () => {
   return (
     <section id="contact" className="section contact-section">
       <div className="container">
-        <motion.div 
+        <m.div 
           className="contact-content"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -136,7 +136,7 @@ const Contact = () => {
 
             <AnimatePresence mode="wait">
               {status === 'success' && (
-                <motion.div 
+                <m.div 
                   className="status-message success-message mb-6"
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
@@ -144,11 +144,11 @@ const Contact = () => {
                 >
                   <CheckCircle size={20} />
                   <span>Message sent successfully! I'll get back to you soon.</span>
-                </motion.div>
+                </m.div>
               )}
               
               {status === 'error' && (
-                <motion.div 
+                <m.div 
                   className="status-message error-message mb-6"
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
@@ -156,11 +156,11 @@ const Contact = () => {
                 >
                   <AlertCircle size={20} />
                   <span>{errorMessage}</span>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
 
-            <motion.button 
+            <m.button 
               type="submit" 
               className={`btn btn-primary btn-lg w-full ${status === 'loading' ? 'loading' : ''}`}
               whileHover={status === 'loading' || !captchaToken ? {} : { 
@@ -179,21 +179,21 @@ const Contact = () => {
               ) : (
                 <>
                   Send Message 
-                  <motion.span
+                  <m.span
                     animate={{ x: [0, 5, 0] }}
                     transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
                     style={{ display: "inline-flex", marginLeft: "0.5rem" }}
                   >
                     <Mail size={18} />
-                  </motion.span>
+                  </m.span>
                 </>
               )}
-            </motion.button>
+            </m.button>
           </form>
 
           
           <div className="social-links">
-            <motion.a 
+            <m.a 
               href="#" 
               className="social-link" 
               aria-label="GitHub"
@@ -201,8 +201,8 @@ const Contact = () => {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <Code size={24} />
-            </motion.a>
-            <motion.a 
+            </m.a>
+            <m.a 
               href="#" 
               className="social-link" 
               aria-label="LinkedIn"
@@ -210,8 +210,8 @@ const Contact = () => {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <Briefcase size={24} />
-            </motion.a>
-            <motion.a 
+            </m.a>
+            <m.a 
               href="#" 
               className="social-link" 
               aria-label="Twitter"
@@ -219,9 +219,9 @@ const Contact = () => {
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <MessageSquare size={24} />
-            </motion.a>
+            </m.a>
           </div>
-        </motion.div>
+        </m.div>
       </div>
       
       <footer className="footer">

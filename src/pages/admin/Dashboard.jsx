@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { MessageSquare, Users, Eye, TrendingUp } from 'lucide-react';
 import { supabase } from '../../lib/supabaseClient';
 import './Dashboard.css';
@@ -45,7 +45,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="dashboard-grid">
         {statCards.map((card, index) => (
-          <motion.div 
+          <m.div 
             key={index}
             className="stat-card"
             initial={{ opacity: 0, y: 20 }}
@@ -59,7 +59,7 @@ const Dashboard = () => {
               <p className="card-title">{card.title}</p>
               <h3 className="card-value">{loading ? '...' : card.value}</h3>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
 

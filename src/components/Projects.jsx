@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { ExternalLink, Code, Loader2, Calendar } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 import './Projects.css';
@@ -60,7 +60,7 @@ const Projects = () => {
   return (
     <section id="projects" className="section projects-section">
       <div className="container">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -70,9 +70,9 @@ const Projects = () => {
             <span className="text-accent">02.</span> Featured Projects
           </h2>
           <p className="section-subtitle">Some things I've built</p>
-        </motion.div>
+        </m.div>
 
-        <motion.div 
+        <m.div 
           className="projects-grid"
           variants={containerVariants}
           initial="hidden"
@@ -80,7 +80,7 @@ const Projects = () => {
           viewport={{ once: true, margin: "-50px" }}
         >
           {projects.map((project) => (
-            <motion.div
+            <m.div
               key={project.id}
               className="card project-card"
               variants={cardVariants}
@@ -97,7 +97,7 @@ const Projects = () => {
                 </div>
                 <div className="project-links">
                   {project.github_link && (
-                    <motion.a 
+                    <m.a 
                       href={project.github_link} 
                       className="project-link" 
                       target="_blank"
@@ -106,10 +106,10 @@ const Projects = () => {
                       whileHover={{ y: -2, color: "var(--accent)" }}
                     >
                       <Code size={20} />
-                    </motion.a>
+                    </m.a>
                   )}
                   {project.live_link && (
-                    <motion.a 
+                    <m.a 
                       href={project.live_link} 
                       className="project-link" 
                       target="_blank"
@@ -118,7 +118,7 @@ const Projects = () => {
                       whileHover={{ y: -2, color: "var(--accent)" }}
                     >
                       <ExternalLink size={20} />
-                    </motion.a>
+                    </m.a>
                   )}
                 </div>
               </div>
@@ -134,18 +134,18 @@ const Projects = () => {
               
               <div className="project-tech">
                 {project.tags?.map(tech => (
-                  <motion.span 
+                  <m.span 
                     key={tech} 
                     className="project-tech-item"
                     whileHover={{ scale: 1.1, color: "var(--accent)" }}
                   >
                     {tech}
-                  </motion.span>
+                  </m.span>
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
