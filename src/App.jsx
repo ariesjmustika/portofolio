@@ -18,6 +18,7 @@ const AdminHero = React.lazy(() => import('./pages/admin/AdminHero'));
 const AdminExperience = React.lazy(() => import('./pages/admin/AdminExperience'));
 const AdminProjects = React.lazy(() => import('./pages/admin/AdminProjects'));
 const AdminExplorations = React.lazy(() => import('./pages/admin/AdminExplorations'));
+const AdminDatabase = React.lazy(() => import('./pages/admin/AdminDatabase'));
 
 import './App.css';
 
@@ -40,6 +41,7 @@ function App() {
                 <Route path="/admin/experience" element={<AdminExperience />} />
                 <Route path="/admin/projects" element={<AdminProjects />} />
                 <Route path="/admin/explorations" element={<AdminExplorations />} />
+                <Route path="/admin/database" element={<AdminDatabase />} />
                 <Route path="/admin/messages" element={<AdminMessages />} />
                 <Route path="/admin/settings" element={<div>Settings Component (Coming Soon)</div>} />
               </Route>

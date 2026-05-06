@@ -1,6 +1,7 @@
 .explorations-section {
   padding: 80px 0;
   position: relative;
+  z-index: 2;
 }
 
 .explorations-grid {
@@ -12,23 +13,29 @@
 
 .browser-mockup {
   background: var(--bg-tertiary);
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.08));
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   display: flex;
   flex-direction: column;
 }
 
+.browser-mockup:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 30px 60px -12px rgba(0,0,0,0.25);
+  border-color: var(--accent);
+}
+
 .browser-header {
   height: 32px;
-  background: rgba(0,0,0,0.2);
+  background: var(--bg-secondary);
   display: flex;
   align-items: center;
   padding: 0 12px;
-  border-bottom: 1px solid var(--border-color, rgba(255,255,255,0.05));
+  border-bottom: 1px solid var(--border-color, rgba(0,0,0,0.08));
   gap: 12px;
 }
 
@@ -50,7 +57,7 @@
 .browser-url-bar {
   flex-grow: 1;
   height: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-tertiary);
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -87,16 +94,16 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
-  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 2.5rem;
   text-align: center;
   z-index: 2;
 }
@@ -106,25 +113,33 @@
 }
 
 .browser-mockup:hover .browser-content img {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .exploration-title {
-  color: #fff;
+  color: #ffffff;
   font-family: var(--font-heading);
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   transform: translateY(20px);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
 
 .exploration-desc {
-  color: #d1d5db;
-  font-size: 0.95rem;
+  color: #e5e7eb;
+  font-size: 0.9rem;
   margin-bottom: 1.5rem;
   transform: translateY(20px);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: 0.05s;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  /* Batasi maksimal 3 baris biar nggak nabrak */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
 }
 
 .exploration-actions {
@@ -148,9 +163,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.75); /* Buat lebih gelap biar kelihatan modalnya */
   backdrop-filter: blur(8px);
-  z-index: 1000;
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999; /* Pastikan di atas segalanya */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,23 +175,25 @@
 
 .modal-content {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   height: 85vh;
   background: var(--bg-primary);
-  border-radius: 12px;
+  border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  border: 1px solid var(--border-color);
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
-  background: var(--bg-secondary);
+  padding: 1.25rem 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
 }
 

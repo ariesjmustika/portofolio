@@ -12,11 +12,19 @@ import {
   Home as HomeIcon,
   Briefcase,
   Layers,
-  Globe
+  Globe,
+  Database
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { themes } from '../components/ThemeSwitcher';
 import './AdminLayout.css';
+// Eagerly load admin CSS files to prevent FOUC during lazy loading
+import '../pages/admin/Dashboard.css';
+import '../pages/admin/AdminExperience.css';
+import '../pages/admin/AdminProjects.css';
+import '../pages/admin/AdminExplorations.css';
+import '../pages/admin/AdminHero.css';
+import '../pages/admin/AdminMessages.css';
 
 const AdminLayout = () => {
   const { logout, user } = useAuth();
@@ -92,6 +100,10 @@ const AdminLayout = () => {
           <NavLink to="/admin/explorations" className={({ isActive }) => isActive ? 'active' : ''}>
             <Globe size={20} />
             <span>Showcases</span>
+          </NavLink>
+          <NavLink to="/admin/database" className={({ isActive }) => isActive ? 'active' : ''}>
+            <Database size={20} />
+            <span>SQL Editor</span>
           </NavLink>
           <NavLink to="/admin/messages" className={({ isActive }) => isActive ? 'active' : ''}>
             <MessageSquare size={20} />

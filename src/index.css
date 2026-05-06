@@ -11,6 +11,8 @@
   --accent-glow: rgba(0, 240, 255, 0.2);
   --accent-hover: #00d4ff;
 
+  --border-color: rgba(255, 255, 255, 0.1);
+
   /* Typography */
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -101,6 +103,8 @@ a {
 
 .section {
   padding: 6rem 0;
+  position: relative;
+  z-index: 2;
 }
 
 /* Components */

@@ -99,6 +99,10 @@ const ThemeSwitcher = () => {
     root.style.setProperty('--text-primary', theme.textPrimary);
     root.style.setProperty('--text-secondary', theme.textSecondary);
     
+    // Set Border Color based on theme brightness
+    const isLight = theme.id === 'light';
+    root.style.setProperty('--border-color', isLight ? '#e2e8f0' : 'rgba(255, 255, 255, 0.1)');
+    
     // Update the hero glow directly
     root.style.setProperty('--hero-glow-color', `rgba(${hexToRgb(theme.accent)}, 0.15)`);
     
