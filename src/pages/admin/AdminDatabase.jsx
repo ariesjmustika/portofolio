@@ -9,6 +9,11 @@ import 'prismjs/themes/prism-tomorrow.css';
 import { supabase } from '../../lib/supabaseClient';
 import './AdminDatabase.css';
 
+// Ensure Prism is globally available for the editor component in production
+if (typeof window !== 'undefined') {
+  window.Prism = Prism;
+}
+
 // Handle ESM/CJS interop issues with Vite
 const Editor = EditorModule.default || EditorModule;
 
@@ -103,7 +108,12 @@ const AdminDatabase = () => {
           <Editor
             value={query}
             onValueChange={code => setQuery(code)}
-            highlight={code => Prism.highlight(code, Prism.languages.sql, 'sql')}
+            highlight={code => {
+              if (!Prism.languages.sql) {
+                return code; // Fallback if Prism/SQL is not loaded
+              }
+              return Prism.highlight(code, Prism.languages.sql, 'sql');
+            }}
             padding={20}
             placeholder="-- Type your SQL here..."
             className="sql-prism-editor"
