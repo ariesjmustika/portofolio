@@ -49,8 +49,8 @@ const Projects = () => {
 
   if (loading) {
     return (
-      <div className="section-loading">
-        <Loader2 className="animate-spin" size={40} />
+      <div className="section-loading" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Loader2 className="animate-spin text-accent" size={40} />
       </div>
     );
   }

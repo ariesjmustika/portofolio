@@ -59,8 +59,8 @@ const Hero = () => {
 
   if (loading) {
     return (
-      <div className="hero-loading">
-        <Loader2 className="animate-spin" size={40} />
+      <div className="hero-loading" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Loader2 className="animate-spin text-accent" size={40} />
       </div>
     );
   }

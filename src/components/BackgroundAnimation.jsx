@@ -91,15 +91,29 @@ const BackgroundAnimation = () => {
       }
     };
 
+    let currentAccentColor = '#00d2ff';
+    const updateAccentColor = () => {
+      const style = getComputedStyle(document.body);
+      currentAccentColor = style.getPropertyValue('--accent').trim() || '#00d2ff';
+    };
+    updateAccentColor();
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class' || mutation.attributeName === 'data-theme') {
+          updateAccentColor();
+        }
+      });
+    });
+    observer.observe(document.body, { attributes: true });
+    observer.observe(document.documentElement, { attributes: true });
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      const style = getComputedStyle(document.body);
-      const accentColor = style.getPropertyValue('--accent').trim() || '#00d2ff';
 
       streams.forEach(stream => {
         stream.update();
-        stream.draw(accentColor);
+        stream.draw(currentAccentColor);
       });
       
       ctx.globalAlpha = 1;
@@ -114,6 +128,7 @@ const BackgroundAnimation = () => {
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
     };
   }, []);
 
