@@ -7,126 +7,124 @@ const BackgroundAnimation = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     let animationFrameId;
-    let streams = [];
+    let particles = [];
     
-    const fontSize = 16;
-    const symbolSet = '01{}[]/\\<>*=;'.split('');
+    const particleCount = 30; // Fewer particles for a cleaner look
+    const connectionDistance = 250;
+    const mouseRadius = 200;
+    let mouse = { x: null, y: null };
 
-    // Resize handler
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      initStreams();
+      initParticles();
     };
 
-    class Stream {
+    class Particle {
       constructor() {
-        this.reset(true);
-      }
-
-      reset(initial = false) {
-        // Snap to grid based on fontSize
-        this.x = Math.floor(Math.random() * (canvas.width / fontSize)) * fontSize;
-        // Start above screen, or randomly distributed if initial
-        this.y = initial ? Math.random() * canvas.height : Math.random() * -500;
-        this.speed = Math.random() * 1.5 + 0.5; // Smooth, slow falling speed
-        this.length = Math.floor(Math.random() * 15 + 10); // Stream length
-        this.chars = [];
-        
-        for (let i = 0; i < this.length; i++) {
-          this.chars.push(this.getRandomChar());
-        }
-      }
-
-      getRandomChar() {
-        return symbolSet[Math.floor(Math.random() * symbolSet.length)];
-      }
-
-      update() {
-        this.y += this.speed;
-        
-        // Reset when the tail passes the bottom of the screen
-        if (this.y - (this.length * fontSize) > canvas.height) {
-          this.reset();
-        }
-
-        // Randomly glitch/change some characters as they fall
-        if (Math.random() < 0.05) {
-          this.chars[Math.floor(Math.random() * this.length)] = this.getRandomChar();
-        }
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 1.5 + 0.5;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
       }
 
       draw(color) {
-        ctx.font = `bold ${fontSize}px monospace`;
-        ctx.textAlign = 'center';
-        
-        for (let i = 0; i < this.length; i++) {
-          const charY = this.y - (i * fontSize);
-          
-          // Only draw if within screen bounds for performance
-          if (charY > -fontSize && charY < canvas.height + fontSize) {
-            // Head is more opaque, tail fades out
-            const alpha = 1 - (i / this.length);
-            
-            ctx.globalAlpha = alpha * 0.15; // Max opacity 0.15 so it's very subtle
-            ctx.fillStyle = color;
-            
-            // The head (first char) can be slightly brighter
-            if (i === 0) {
-               ctx.globalAlpha = 0.25;
-            }
-            
-            ctx.fillText(this.chars[i], this.x, charY);
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+        // Subtle mouse attraction
+        if (mouse.x !== null) {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < mouseRadius) {
+            this.x += dx * 0.01;
+            this.y += dy * 0.01;
           }
         }
       }
     }
 
-    const initStreams = () => {
-      streams = [];
-      // Density based on screen width
-      const numberOfStreams = Math.floor(canvas.width / (fontSize * 1.5)); 
-      for (let i = 0; i < numberOfStreams; i++) {
-        streams.push(new Stream());
+    const initParticles = () => {
+      particles = [];
+      const count = Math.floor((canvas.width * canvas.height) / 50000); 
+      for (let i = 0; i < count; i++) {
+        particles.push(new Particle());
       }
     };
 
-    let currentAccentColor = '#00d2ff';
-    const updateAccentColor = () => {
+    let accentColor = '#00f0ff';
+    const updateColors = () => {
       const style = getComputedStyle(document.body);
-      currentAccentColor = style.getPropertyValue('--accent').trim() || '#00d2ff';
+      accentColor = style.getPropertyValue('--accent').trim() || '#00f0ff';
     };
-    updateAccentColor();
 
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'class' || mutation.attributeName === 'data-theme') {
-          updateAccentColor();
-        }
-      });
-    });
-    observer.observe(document.body, { attributes: true });
-    observer.observe(document.documentElement, { attributes: true });
+    const handleMouseMove = (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
+
+    const handleMouseLeave = () => {
+      mouse.x = null;
+      mouse.y = null;
+    };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach((p, i) => {
+        p.update();
+        p.draw(accentColor);
 
-      streams.forEach(stream => {
-        stream.update();
-        stream.draw(currentAccentColor);
+        // Connections
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < connectionDistance) {
+            ctx.beginPath();
+            ctx.strokeStyle = accentColor;
+            ctx.globalAlpha = (1 - dist / connectionDistance) * 0.05; // Very subtle
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
       });
       
       ctx.globalAlpha = 1;
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    // Initialization
     window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseleave', handleMouseLeave);
+    
+    updateColors();
     resizeCanvas();
     animate();
 
+    const observer = new MutationObserver(updateColors);
+    observer.observe(document.body, { attributes: true, attributeFilter: ['class', 'style'] });
+
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
       observer.disconnect();
     };
@@ -143,6 +141,7 @@ const BackgroundAnimation = () => {
         height: '100%',
         zIndex: -1,
         pointerEvents: 'none',
+        background: 'radial-gradient(circle at center, #050505 0%, #000000 100%)',
       }}
     />
   );

@@ -1,245 +1,70 @@
-.explorations-section {
-  padding: 80px 0;
-  position: relative;
-  z-index: 2;
+.lab-section {
+  padding: var(--section-padding);
 }
 
-.explorations-grid {
+.lab-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2.5rem;
-  margin-top: 3rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-.browser-mockup {
-  background: var(--bg-tertiary);
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.08));
-  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
+.lab-item {
   display: flex;
   flex-direction: column;
-}
-
-.browser-mockup:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 30px 60px -12px rgba(0,0,0,0.25);
-  border-color: var(--accent);
-}
-
-.browser-header {
-  height: 32px;
-  background: var(--bg-secondary);
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  border-bottom: 1px solid var(--border-color, rgba(0,0,0,0.08));
-  gap: 12px;
-}
-
-.browser-dots {
-  display: flex;
-  gap: 6px;
-}
-
-.browser-dots .dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-
-.browser-dots .dot.red { background: #ff5f56; }
-.browser-dots .dot.yellow { background: #ffbd2e; }
-.browser-dots .dot.green { background: #27c93f; }
-
-.browser-url-bar {
-  flex-grow: 1;
-  height: 20px;
-  background: var(--bg-tertiary);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.65rem;
-  color: var(--text-secondary);
-  font-family: monospace;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding: 0 10px;
-  max-width: 60%;
-  margin: 0 auto;
-}
-
-.browser-content {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
   position: relative;
-  aspect-ratio: 16/10;
   overflow: hidden;
-  background-color: var(--bg-secondary);
 }
 
-.browser-content img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+.lab-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom-color: var(--accent);
 }
 
-.browser-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 2.5rem;
-  text-align: center;
-  z-index: 2;
-}
-
-.browser-mockup:hover .browser-overlay {
-  opacity: 1;
-}
-
-.browser-mockup:hover .browser-content img {
-  transform: scale(1.1);
-}
-
-.exploration-title {
-  color: #ffffff;
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
-  transform: translateY(20px);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-}
-
-.exploration-desc {
-  color: #e5e7eb;
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
-  transform: translateY(20px);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 0.05s;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-  /* Batasi maksimal 3 baris biar nggak nabrak */
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-height: 1.4;
-}
-
-.exploration-actions {
-  display: flex;
-  gap: 1rem;
-  transform: translateY(20px);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 0.1s;
-}
-
-.browser-mockup:hover .exploration-title,
-.browser-mockup:hover .exploration-desc,
-.browser-mockup:hover .exploration-actions {
-  transform: translateY(0);
-}
-
-/* Modal Styles */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.75); /* Buat lebih gelap biar kelihatan modalnya */
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  z-index: 9999; /* Pastikan di atas segalanya */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-}
-
-.modal-content {
-  width: 100%;
-  max-width: 1240px;
-  height: 85vh;
-  background: var(--bg-primary);
-  border-radius: 20px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  position: relative;
-}
-
-.modal-header {
+.lab-item-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 2rem;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 1.5rem;
 }
 
-.modal-header h3 {
-  margin: 0;
+.lab-title {
   font-size: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.modal-close {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.modal-close:hover {
-  background: rgba(255, 255, 255, 0.1);
+  font-weight: 700;
+  margin-bottom: 1rem;
   color: var(--text-primary);
 }
 
-.modal-body {
+.lab-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 2rem;
   flex-grow: 1;
-  position: relative;
-  background: #fff; /* Ensure iframe background is white if transparent */
 }
 
-.modal-body iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
+.lab-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-@media (max-width: 768px) {
-  .modal-overlay {
-    padding: 1rem;
-  }
-  .modal-content {
-    height: 90vh;
+.lab-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--bg-tertiary);
+  padding: 0.2rem 0.5rem;
+  border-radius: 2px;
+}
+
+@media (max-width: 640px) {
+  .lab-grid {
+    grid-template-columns: 1fr;
   }
 }

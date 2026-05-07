@@ -19,10 +19,12 @@ const AdminProjects = () => {
     sort_order: 0,
     tags: '',
     live_link: '',
-    github_link: ''
+    github_link: '',
+    problem: '',
+    solution: '',
+    highlights: '',
+    category: ''
   });
-
-
 
   useEffect(() => {
     fetchProjects();
@@ -48,7 +50,8 @@ const AdminProjects = () => {
   const handleEdit = (project) => {
     setCurrentProject({
       ...project,
-      tags: project.tags?.join(', ') || ''
+      tags: project.tags?.join(', ') || '',
+      highlights: project.highlights?.join(', ') || ''
     });
     setIsEditing(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -115,7 +118,8 @@ const AdminProjects = () => {
     e.preventDefault();
     const payload = {
       ...currentProject,
-      tags: currentProject.tags.split(',').map(s => s.trim()).filter(s => s !== '')
+      tags: currentProject.tags.split(',').map(s => s.trim()).filter(s => s !== ''),
+      highlights: currentProject.highlights.split(',').map(s => s.trim()).filter(s => s !== '')
     };
 
     try {
@@ -129,11 +133,28 @@ const AdminProjects = () => {
 
       Swal.fire({ icon: 'success', title: 'Success!', timer: 1500, showConfirmButton: false });
       setIsEditing(false);
-      setCurrentProject({ title: '', description: '', image_url: '', tags: '', live_link: '', github_link: '' });
+      resetForm();
       fetchProjects();
     } catch (error) {
       Swal.fire('Error!', error.message, 'error');
     }
+  };
+
+  const resetForm = () => {
+    setCurrentProject({ 
+      title: '', 
+      description: '', 
+      image_url: '', 
+      tags: '', 
+      live_link: '', 
+      github_link: '',
+      problem: '',
+      solution: '',
+      highlights: '',
+      category: '',
+      duration: '',
+      sort_order: 0
+    });
   };
 
   if (loading) {
@@ -166,14 +187,37 @@ const AdminProjects = () => {
                   <label>Project Title</label>
                   <input type="text" value={currentProject.title} onChange={(e) => setCurrentProject({...currentProject, title: e.target.value})} required />
                 </div>
-                <div className="form-group full-width">
-                  <label>Duration (e.g., Jan 2024 - Mar 2024)</label>
-                  <input type="text" value={currentProject.duration} onChange={(e) => setCurrentProject({...currentProject, duration: e.target.value})} placeholder="Project duration" />
+                
+                <div className="form-group">
+                  <label>Category (Web, Mobile, System, etc.)</label>
+                  <input type="text" value={currentProject.category} onChange={(e) => setCurrentProject({...currentProject, category: e.target.value})} placeholder="e.g. Enterprise System" />
                 </div>
-                <div className="form-group full-width">
-                  <label>Description</label>
-                  <textarea rows="3" value={currentProject.description} onChange={(e) => setCurrentProject({...currentProject, description: e.target.value})} required></textarea>
+
+                <div className="form-group">
+                  <label>Duration</label>
+                  <input type="text" value={currentProject.duration} onChange={(e) => setCurrentProject({...currentProject, duration: e.target.value})} placeholder="Jan 2024 - Mar 2024" />
                 </div>
+
+                <div className="form-group full-width">
+                  <label>Main Description (Short)</label>
+                  <textarea rows="2" value={currentProject.description} onChange={(e) => setCurrentProject({...currentProject, description: e.target.value})} required></textarea>
+                </div>
+
+                <div className="form-group full-width">
+                  <label>The Problem (Case Study)</label>
+                  <textarea rows="3" value={currentProject.problem} onChange={(e) => setCurrentProject({...currentProject, problem: e.target.value})} placeholder="Describe the business/technical problem..."></textarea>
+                </div>
+
+                <div className="form-group full-width">
+                  <label>The Solution (Case Study)</label>
+                  <textarea rows="3" value={currentProject.solution} onChange={(e) => setCurrentProject({...currentProject, solution: e.target.value})} placeholder="Describe your engineering solution..."></textarea>
+                </div>
+
+                <div className="form-group full-width">
+                  <label>Engineering Highlights (comma separated)</label>
+                  <input type="text" value={currentProject.highlights} onChange={(e) => setCurrentProject({...currentProject, highlights: e.target.value})} placeholder="Real-time status, Automated scheduling, Scalable DB" />
+                </div>
+
                 <div className="form-group full-width">
                   <label>Project Cover Image</label>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
@@ -205,9 +249,8 @@ const AdminProjects = () => {
                   </div>
                 </div>
                 <div className="form-group full-width">
-                  <label>Tags (comma separated)</label>
-
-                  <input type="text" value={currentProject.tags} onChange={(e) => setCurrentProject({...currentProject, tags: e.target.value})} placeholder="React, Three.js, GSAP" />
+                  <label>Tech Stack Tags (comma separated)</label>
+                  <input type="text" value={currentProject.tags} onChange={(e) => setCurrentProject({...currentProject, tags: e.target.value})} placeholder="Laravel, React, PostgreSQL" />
                 </div>
                 <div className="form-group">
                   <label>Live Link</label>

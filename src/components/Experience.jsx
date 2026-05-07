@@ -30,9 +30,20 @@ const Experience = () => {
 
   if (loading) {
     return (
-      <div className="section-loading" style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Loader2 className="animate-spin text-accent" size={40} />
-      </div>
+      <section className="section experience-section">
+        <div className="container">
+          <div className="section-title">
+            <div className="skeleton h-12 w-48 mx-auto mb-4"></div>
+          </div>
+          <div className="experience-timeline">
+            {[1, 2].map(i => (
+              <div key={i} className="skeleton-timeline-item">
+                <div className="skeleton h-40 w-full"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     );
   }
 
@@ -42,15 +53,13 @@ const Experience = () => {
     <section id="experience" className="section experience-section">
       <div className="container">
         <motion.div
+          className="section-title"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
         >
-          <h2 className="heading-lg section-title">
-            <span className="text-accent">01.</span> Experience
-          </h2>
-          <p className="section-subtitle">Over {new Date().getFullYear() - 2021} years of professional journey</p>
+          <h2 className="heading-lg mb-4">Experience</h2>
+          <p className="text-secondary">Building scalable systems across diverse industries.</p>
         </motion.div>
 
         <div className="experience-timeline">
@@ -58,63 +67,45 @@ const Experience = () => {
             <motion.div 
               key={exp.id}
               className="timeline-item"
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ 
-                type: "spring",
-                stiffness: 100,
-                damping: 20,
-                delay: index * 0.15 
-              }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <div className="timeline-marker">
-                <motion.div 
-                  className="timeline-dot"
-                  whileInView={{ 
-                    scale: [1, 1.5, 1],
-                    boxShadow: [
-                      "0 0 0px var(--accent-glow)",
-                      "0 0 20px var(--accent)",
-                      "0 0 10px var(--accent-glow)"
-                    ]
-                  }}
-                  transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
-                ></motion.div>
+                <div className="timeline-dot"></div>
                 <div className="timeline-line"></div>
               </div>
               
-              <motion.div 
-                className="card timeline-content"
-                whileHover={{ 
-                  y: -5,
-                  boxShadow: "0 10px 30px -10px var(--accent-glow)",
-                  borderColor: "var(--accent)"
-                }}
-              >
+              <div className="timeline-content">
                 <div className="timeline-header">
-                  <h3 className="timeline-role">{exp.role}</h3>
+                  <div className="timeline-title-group">
+                    <h3 className="timeline-role">{exp.role}</h3>
+                    <h4 className="timeline-company">{exp.company}</h4>
+                  </div>
                   <div className="timeline-duration">
-                    <Calendar size={16} /> {exp.duration}
+                    {exp.duration}
                   </div>
                 </div>
-                <h4 className="timeline-company">
-                  <Briefcase size={18} className="text-accent" /> {exp.company}
-                </h4>
+
                 <p className="timeline-desc">{exp.description}</p>
+                
+                {exp.achievements && (
+                  <ul className="timeline-achievements">
+                    {exp.achievements.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                )}
                 
                 <div className="timeline-tech">
                   {exp.skills?.map(tech => (
-                    <motion.span 
-                      key={tech} 
-                      className="tech-badge"
-                      whileHover={{ scale: 1.1, color: "var(--accent)", borderColor: "var(--accent)" }}
-                    >
+                    <span key={tech} className="tech-badge">
                       {tech}
-                    </motion.span>
+                    </span>
                   ))}
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
           ))}
         </div>
