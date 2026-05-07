@@ -64,114 +64,131 @@ const Contact = () => {
   return (
     <section id="contact" className="section contact-section">
       <div className="container">
-        <motion.div 
-          className="contact-content"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="section-title">
-            <h2 className="heading-lg mb-6">Let's build systems together.</h2>
-            <p className="text-secondary max-w-2xl mx-auto">
-              I'm always open to discussing backend architecture, scalable systems, 
-              or complex business workflows. If you have a project that needs 
-              engineering rigor, let's talk.
+        <div className="contact-grid">
+          <motion.div 
+            className="contact-info"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="badge">Available for Projects</div>
+            <h2 className="heading-lg">Let's build scalable systems together.</h2>
+            <p className="text-secondary">
+              I'm currently looking for new opportunities to solve complex backend challenges 
+              and build robust architectures. If you have a project that needs engineering rigor, 
+              let's establish a connection.
             </p>
-          </div>
+
+            <div className="contact-methods">
+              <div className="method-item">
+                <div className="method-icon"><Mail size={20} /></div>
+                <div className="method-text">
+                  <span>Email Me</span>
+                  <a href="mailto:aries290814@gmail.com">aries290814@gmail.com</a>
+                </div>
+              </div>
+              <div className="method-item">
+                <div className="method-icon"><MessageSquare size={20} /></div>
+                <div className="method-text">
+                  <span>Direct Message</span>
+                  <a href="https://www.linkedin.com/in/aries-jakaradytia-mustika-82767b107" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
+                </div>
+              </div>
+            </div>
+
+
+          </motion.div>
           
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <div className="form-row">
-              <div className="form-group">
-                <label>Name</label>
-                <input 
-                  type="text" 
-                  name="name"
-                  className="form-input" 
-                  placeholder="John Doe" 
-                  value={formData.name}
+          <motion.div 
+            className="contact-form-container"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <form className="contact-form-premium" onSubmit={handleSubmit}>
+              <div className="form-row-premium">
+                <div className="form-group-premium">
+                  <label>Full Name</label>
+                  <input 
+                    type="text" 
+                    name="name"
+                    placeholder="Enter your name" 
+                    value={formData.name}
+                    onChange={handleChange}
+                    required 
+                    disabled={status === 'loading'}
+                  />
+                </div>
+                <div className="form-group-premium">
+                  <label>Email Address</label>
+                  <input 
+                    type="email" 
+                    name="email"
+                    placeholder="name@company.com" 
+                    value={formData.email}
+                    onChange={handleChange}
+                    required 
+                    disabled={status === 'loading'}
+                  />
+                </div>
+              </div>
+              
+              <div className="form-group-premium">
+                <label>System Requirements / Message</label>
+                <textarea 
+                  name="message"
+                  placeholder="Tell me about your project or architecture needs..." 
+                  rows="5" 
+                  value={formData.message}
                   onChange={handleChange}
                   required 
                   disabled={status === 'loading'}
+                ></textarea>
+              </div>
+              
+              <div className="form-group-premium captcha-wrapper">
+                <Turnstile 
+                  ref={turnstileRef}
+                  siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} 
+                  onSuccess={(token) => {
+                    setCaptchaToken(token);
+                    setStatus('idle');
+                  }}
+                  onExpire={() => setCaptchaToken(null)}
+                  onError={() => setCaptchaToken(null)}
+                  theme="dark"
                 />
               </div>
-              <div className="form-group">
-                <label>Email</label>
-                <input 
-                  type="email" 
-                  name="email"
-                  className="form-input" 
-                  placeholder="john@business.com" 
-                  value={formData.email}
-                  onChange={handleChange}
-                  required 
-                  disabled={status === 'loading'}
-                />
-              </div>
-            </div>
-            
-            <div className="form-group">
-              <label>Message</label>
-              <textarea 
-                name="message"
-                className="form-input form-textarea" 
-                placeholder="How can I help with your system architecture?" 
-                rows="6" 
-                value={formData.message}
-                onChange={handleChange}
-                required 
-                disabled={status === 'loading'}
-              ></textarea>
-            </div>
-            
-            <div className="form-group captcha-container">
-              <Turnstile 
-                ref={turnstileRef}
-                siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY} 
-                onSuccess={(token) => {
-                  setCaptchaToken(token);
-                  setStatus('idle');
-                }}
-                onExpire={() => setCaptchaToken(null)}
-                onError={() => setCaptchaToken(null)}
-                theme="dark"
-              />
-            </div>
 
-            <AnimatePresence mode="wait">
-              {status === 'success' && (
-                <motion.div className="status-message success">
-                  <CheckCircle size={18} /> Message received. I'll get back to you shortly.
-                </motion.div>
-              )}
-              {status === 'error' && (
-                <motion.div className="status-message error">
-                  <AlertCircle size={18} /> {errorMessage}
-                </motion.div>
-              )}
-            </AnimatePresence>
+              <AnimatePresence mode="wait">
+                {status === 'success' && (
+                  <motion.div className="status-message success" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                    <CheckCircle size={18} /> Protocol success. I'll respond shortly.
+                  </motion.div>
+                )}
+                {status === 'error' && (
+                  <motion.div className="status-message error" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                    <AlertCircle size={18} /> {errorMessage}
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-            <button 
-              type="submit" 
-              className={`btn btn-primary w-full ${status === 'loading' ? 'loading' : ''}`}
-              disabled={status === 'loading' || !captchaToken}
-            >
-              {status === 'loading' ? 'Transmitting Data...' : 'Send Message'}
-            </button>
-          </form>
-
-          <div className="social-links">
-            <a href="https://github.com/ariesjmustika" target="_blank" rel="noopener noreferrer" className="social-link">
-              <Code size={20} /> GitHub
-            </a>
-            <a href="https://linkedin.com/in/ariesjmustika" target="_blank" rel="noopener noreferrer" className="social-link">
-              <Briefcase size={20} /> LinkedIn
-            </a>
-            <a href="mailto:aries@ariesjakaradytia.com" className="social-link">
-              <Mail size={20} /> Email
-            </a>
-          </div>
-        </motion.div>
+              <button 
+                type="submit" 
+                className={`btn btn-primary w-full ${status === 'loading' ? 'loading' : ''}`}
+                disabled={status === 'loading' || !captchaToken}
+              >
+                {status === 'loading' ? (
+                  <><Loader2 className="animate-spin" size={18} /> Processing...</>
+                ) : (
+                  <><Send size={18} /> Establish Connection</>
+                )}
+              </button>
+            </form>
+          </motion.div>
+        </div>
       </div>
       
       <footer className="footer">

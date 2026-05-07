@@ -6,7 +6,7 @@ import './ThemeSwitcher.css';
 export const themes = [
   {
     id: 'midnight',
-    name: 'Midnight Cyber',
+    name: 'Dark',
     accent: '#00f0ff',
     glow: 'rgba(0, 240, 255, 0.2)',
     hover: '#00d4ff',
@@ -17,44 +17,8 @@ export const themes = [
     textSecondary: '#94a3b8'
   },
   {
-    id: 'forest',
-    name: 'Deep Forest',
-    accent: '#10b981',
-    glow: 'rgba(16, 185, 129, 0.2)',
-    hover: '#34d399',
-    bgPrimary: '#051f15',
-    bgSecondary: '#064e3b',
-    bgTertiary: '#065f46',
-    textPrimary: '#ecfdf5',
-    textSecondary: '#a7f3d0'
-  },
-  {
-    id: 'royal',
-    name: 'Royal Purple',
-    accent: '#a855f7',
-    glow: 'rgba(168, 85, 247, 0.2)',
-    hover: '#c084fc',
-    bgPrimary: '#1e1b4b',
-    bgSecondary: '#312e81',
-    bgTertiary: '#3730a3',
-    textPrimary: '#e0e7ff',
-    textSecondary: '#a5b4fc'
-  },
-  {
-    id: 'sunset',
-    name: 'Sunset Dark',
-    accent: '#f97316',
-    glow: 'rgba(249, 115, 22, 0.2)',
-    hover: '#ea580c',
-    bgPrimary: '#1c1917',
-    bgSecondary: '#292524',
-    bgTertiary: '#44403c',
-    textPrimary: '#fafaf9',
-    textSecondary: '#a8a29e'
-  },
-  {
     id: 'light',
-    name: 'Clean Light',
+    name: 'Light',
     accent: '#2563eb',
     glow: 'rgba(37, 99, 235, 0.2)',
     hover: '#1d4ed8',
@@ -130,7 +94,7 @@ const ThemeSwitcher = () => {
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
             <div className="theme-panel-header">
-              <h3 className="theme-panel-title">Select Accent</h3>
+              <h3 className="theme-panel-title">Select Theme</h3>
               <button onClick={() => setIsOpen(false)} className="close-btn">
                 <X size={18} />
               </button>
@@ -154,13 +118,18 @@ const ThemeSwitcher = () => {
         )}
       </AnimatePresence>
 
-      <button 
-        className="theme-toggle-btn"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toggle theme selector"
-      >
-        <Palette size={24} />
-      </button>
+        <motion.button 
+          className="theme-toggle-btn"
+          onClick={() => setIsOpen(!isOpen)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          style={{ '--toggle-pos': activeTheme === 'midnight' ? '0%' : '100%' }}
+        >
+          <div className="toggle-icon-wrap">
+            <Palette size={20} />
+          </div>
+          <div className="toggle-indicator"></div>
+        </motion.button>
     </div>
   );
 };

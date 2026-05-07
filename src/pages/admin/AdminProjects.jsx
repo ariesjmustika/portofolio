@@ -220,32 +220,50 @@ const AdminProjects = () => {
 
                 <div className="form-group full-width">
                   <label>Project Cover Image</label>
-                  <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    {currentProject.image_url && (
-                      <img 
-                        src={currentProject.image_url} 
-                        alt="Preview" 
-                        style={{ width: '100px', height: '60px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--border-color)' }}
-                      />
-                    )}
-                    <label className="btn btn-outline" style={{ cursor: 'pointer', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      {uploadingImage ? <Loader2 size={16} className="animate-spin" /> : <Upload size={16} />}
-                      {uploadingImage ? 'Uploading...' : 'Upload Image'}
+                  <div className="upload-container">
+                    <div 
+                      className={`drag-drop-area ${uploadingImage ? 'uploading' : ''}`}
+                      onDragOver={(e) => { e.preventDefault(); e.currentTarget.classList.add('dragover'); }}
+                      onDragLeave={(e) => { e.preventDefault(); e.currentTarget.classList.remove('dragover'); }}
+                      onDrop={async (e) => {
+                        e.preventDefault();
+                        e.currentTarget.classList.remove('dragover');
+                        const file = e.dataTransfer.files[0];
+                        if (file) handleImageUpload({ target: { files: [file] } });
+                      }}
+                    >
+                      {currentProject.image_url ? (
+                        <div className="preview-wrapper">
+                          <img src={currentProject.image_url} alt="Preview" />
+                          <button type="button" className="remove-img" onClick={() => setCurrentProject({...currentProject, image_url: ''})}>
+                            <X size={16} />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="upload-placeholder">
+                          <div className="upload-icon">
+                            {uploadingImage ? <Loader2 className="animate-spin" /> : <Upload />}
+                          </div>
+                          <p>{uploadingImage ? 'Processing System Data...' : 'Drag & drop image or click to browse'}</p>
+                          <span className="text-muted">Recommended: 1200x800px</span>
+                        </div>
+                      )}
                       <input 
                         type="file" 
                         accept="image/*" 
-                        style={{ display: 'none' }} 
                         onChange={handleImageUpload}
                         disabled={uploadingImage}
                       />
-                    </label>
-                    <input 
-                      type="text" 
-                      value={currentProject.image_url} 
-                      onChange={(e) => setCurrentProject({...currentProject, image_url: e.target.value})} 
-                      placeholder="Or paste URL here..." 
-                      style={{ flexGrow: 1 }}
-                    />
+                    </div>
+                    <div className="url-input-alt">
+                      <ImageIcon size={16} />
+                      <input 
+                        type="text" 
+                        value={currentProject.image_url} 
+                        onChange={(e) => setCurrentProject({...currentProject, image_url: e.target.value})} 
+                        placeholder="Or manually paste external image URL..." 
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="form-group full-width">

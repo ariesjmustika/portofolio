@@ -32,12 +32,21 @@ const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(true);
   const [activeTheme, setActiveTheme] = React.useState('light');
 
+  const changeTheme = (themeId) => {
+    localStorage.setItem('admin-theme', themeId);
+    setActiveTheme(themeId);
+    if (themeId === 'midnight') {
+      document.body.classList.add('admin-theme-dark');
+      document.body.classList.remove('admin-theme-light');
+    } else {
+      document.body.classList.add('admin-theme-light');
+      document.body.classList.remove('admin-theme-dark');
+    }
+  };
+
   React.useEffect(() => {
     const savedThemeId = localStorage.getItem('admin-theme') || 'light';
-    const theme = themes.find(t => t.id === savedThemeId);
-    if (theme) {
-      setActiveTheme(theme.id);
-    }
+    changeTheme(savedThemeId);
   }, []);
 
   const handleLogout = async () => {
@@ -49,10 +58,6 @@ const AdminLayout = () => {
     }
   };
 
-  const changeTheme = (themeId) => {
-    localStorage.setItem('admin-theme', themeId);
-    setActiveTheme(themeId);
-  };
 
   const getThemeVars = () => {
     const theme = themes.find(t => t.id === activeTheme);
@@ -141,17 +146,18 @@ const AdminLayout = () => {
           </div>
           <button onClick={handleLogout} className="logout-btn">
             <LogOut size={20} />
-            <span>Logout</span>
+            <span>Logout System</span>
           </button>
         </div>
       </aside>
 
       <main className="admin-main">
+        <div className="grid-bg"></div>
         <header className="admin-header">
           <button className="sidebar-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-            <Menu size={24} />
+            {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
-          <h2>{document.title.split(' | ')[1] || 'Dashboard'}</h2>
+          <h2>{document.title.split(' | ')[1] || 'System Management'}</h2>
         </header>
         <div className="admin-content">
           <Outlet />
