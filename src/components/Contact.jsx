@@ -192,7 +192,7 @@ const Contact = () => {
       </div>
       
       <footer className="footer">
-        <p>© {new Date().getFullYear()} Aries Jakaradytia Mustika. Systems Engineer Portfolio.</p>
+        <p>Designed & Built by Aries Jakaradytia Mustika &copy; {new Date().getFullYear()}</p>
       </footer>
     </section>
   );

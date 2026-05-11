@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Palette, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Sun, Moon } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './ThemeSwitcher.css';
 
 export const themes = [
@@ -30,11 +30,8 @@ export const themes = [
   }
 ];
 
-
 const ThemeSwitcher = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [activeTheme, setActiveTheme] = useState('light');
-
 
   // Load saved theme on initial mount
   useEffect(() => {
@@ -44,7 +41,6 @@ const ThemeSwitcher = () => {
       applyTheme(theme);
       setActiveTheme(theme.id);
     }
-
   }, []);
 
   const applyTheme = (theme) => {
@@ -82,54 +78,33 @@ const ThemeSwitcher = () => {
       : '0, 240, 255';
   };
 
+  const toggleTheme = () => {
+    const newThemeId = activeTheme === 'light' ? 'midnight' : 'light';
+    const theme = themes.find(t => t.id === newThemeId);
+    if (theme) {
+      applyTheme(theme);
+    }
+  };
+
   return (
     <div className="theme-switcher-container">
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div 
-            className="theme-panel card"
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          >
-            <div className="theme-panel-header">
-              <h3 className="theme-panel-title">Select Theme</h3>
-              <button onClick={() => setIsOpen(false)} className="close-btn">
-                <X size={18} />
-              </button>
-            </div>
-            
-            <div className="theme-grid">
-              {themes.map(theme => (
-                <button
-                  key={theme.id}
-                  className={`theme-btn ${activeTheme === theme.id ? 'active' : ''}`}
-                  onClick={() => applyTheme(theme)}
-                  style={{ '--theme-color': theme.accent }}
-                  title={theme.name}
-                >
-                  <span className="theme-color-dot" style={{ backgroundColor: theme.bgPrimary, border: `2px solid ${theme.accent}` }}></span>
-                  <span className="theme-name">{theme.name}</span>
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-        <motion.button 
-          className="theme-toggle-btn"
-          onClick={() => setIsOpen(!isOpen)}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          style={{ '--toggle-pos': activeTheme === 'midnight' ? '0%' : '100%' }}
+      <motion.button 
+        className="theme-toggle-btn"
+        onClick={toggleTheme}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        aria-label="Toggle Theme"
+        title="Toggle Theme"
+      >
+        <motion.div
+          initial={false}
+          animate={{ rotate: activeTheme === 'light' ? 0 : 360 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="toggle-icon-wrap"
         >
-          <div className="toggle-icon-wrap">
-            <Palette size={20} />
-          </div>
-          <div className="toggle-indicator"></div>
-        </motion.button>
+          {activeTheme === 'light' ? <Moon size={22} className="moon-icon" /> : <Sun size={22} className="sun-icon" />}
+        </motion.div>
+      </motion.button>
     </div>
   );
 };

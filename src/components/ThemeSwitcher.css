@@ -4,175 +4,66 @@
   right: 2rem;
   z-index: 1000;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 1rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .theme-toggle-btn {
-  width: 50px;
-  height: 90px;
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.03);
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
-  padding-bottom: 5px;
-}
-
-.theme-toggle-btn::before {
-  content: 'THEME';
-  position: absolute;
-  top: -40px;
-  right: 0;
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  color: var(--accent);
-  opacity: 0;
-  transform: translateX(10px);
-  transition: all 0.3s ease;
-  pointer-events: none;
-}
-
-.theme-toggle-btn:hover {
-  height: 110px;
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--accent);
-  box-shadow: 0 15px 40px var(--accent-glow);
-}
-
-.theme-toggle-btn:hover::before {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.toggle-icon-wrap {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--bg-tertiary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  border: 1px solid var(--border-color);
-}
-
-.theme-toggle-btn:hover .toggle-icon-wrap {
-  background: var(--accent);
-  color: #030303;
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px var(--accent-glow);
-}
-
-.toggle-indicator {
-  width: 4px;
-  height: 20px;
-  background: var(--border-color);
-  border-radius: 2px;
-  position: relative;
+  outline: none;
   overflow: hidden;
 }
 
-.toggle-indicator::after {
+.theme-toggle-btn::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 50%;
+  height: 100%;
   background: var(--accent);
-  transition: transform 0.3s ease;
-  transform: translateY(var(--toggle-pos, 0%));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
 }
 
-.theme-panel {
-  width: 280px;
-  padding: 1.5rem;
-  margin-bottom: 0.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+.theme-toggle-btn:hover {
+  border-color: var(--accent);
+  box-shadow: 0 15px 40px var(--accent-glow);
+  transform: translateY(-5px);
 }
 
-.theme-panel-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+.theme-toggle-btn:hover::before {
+  opacity: 0.1;
 }
 
-.theme-panel-title {
-  font-size: 1rem;
-  font-family: var(--font-heading);
-  margin: 0;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
+.toggle-icon-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.2rem;
-  transition: color 0.2s;
-}
-
-.close-btn:hover {
-  color: var(--text-primary);
-}
-
-.theme-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-}
-
-.theme-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
   width: 100%;
-  padding: 1rem 0.5rem;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: var(--text-secondary);
+  height: 100%;
 }
 
-.theme-btn:hover {
-  background-color: var(--bg-tertiary);
-  color: var(--text-primary);
+.moon-icon, .sun-icon {
+  transition: all 0.3s ease;
 }
 
-.theme-btn.active {
-  background-color: color-mix(in srgb, var(--text-primary) 5%, transparent);
-  border-color: var(--theme-color);
-  color: var(--text-primary);
-}
-
-.theme-color-dot {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--theme-color);
-}
-
-.theme-name {
-  font-size: 0.9rem;
-  font-weight: 500;
+.theme-toggle-btn:hover .moon-icon, 
+.theme-toggle-btn:hover .sun-icon {
+  color: var(--accent);
+  transform: scale(1.1);
 }
