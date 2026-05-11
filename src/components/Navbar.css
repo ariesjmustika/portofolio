@@ -37,7 +37,7 @@
 
 .nav-logo {
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.01em;
@@ -45,171 +45,133 @@
   transition: color 0.4s ease;
 }
 
-/* Removed hardcoded color overrides for scrolled state */
-
 .logo-thin {
   font-weight: 400;
   color: var(--text-secondary);
 }
 
-.nav-desktop {
-  display: none;
-  align-items: center;
-  gap: 3rem;
-}
-
-.nav-link {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  font-weight: 600;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  position: relative;
-}
-
-/* Removed hardcoded color overrides for scrolled links */
-
-.nav-link:hover, .nav-link.active {
-  color: var(--text-primary);
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--accent);
-  transition: width 0.3s ease;
-}
-
-.nav-link.active::after {
-  width: 100%;
-}
-
-.nav-btn-sm {
-  padding: 0.5rem 1.25rem;
-  font-size: 0.85rem;
-}
-
-.mobile-menu-btn {
+.nav-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  color: var(--text-primary);
-  cursor: pointer;
-  z-index: 1002;
-  transition: transform 0.3s ease, color 0.4s ease;
-}
-
-/* Removed hardcoded color override for mobile menu btn */
-
-.mobile-menu-btn.active {
-  transform: rotate(90deg);
-}
-
-/* Mobile Menu Overlay */
-.mobile-menu-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
-  z-index: 999;
-}
-
-.mobile-menu {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 85%;
-  max-width: 400px;
-  height: 100vh;
-  background-color: var(--bg-secondary);
-  border-left: 1px solid var(--border-color);
-  padding: 6rem 2.5rem 3rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.mobile-menu-content {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.mobile-nav {
-  display: flex;
-  flex-direction: column;
   gap: 1rem;
 }
 
-.mobile-nav-link {
+/* Mobile Nav Defaults (Hidden Desktop) */
+.nav-desktop {
+  display: none;
+}
+
+.mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: var(--bg-primary);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-color);
   display: flex;
+  justify-content: space-around;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1rem 0;
-  color: var(--text-primary);
-  transition: all 0.3s ease;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  z-index: 1000;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.1);
 }
 
-.nav-number {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85rem;
-  color: var(--accent);
-  opacity: 0.6;
-}
-
-.nav-text {
-  font-size: 2rem;
-  font-weight: 700;
-  font-family: var(--font-heading);
-}
-
-.mobile-nav-link.active .nav-text {
-  color: var(--accent);
-  padding-left: 0.5rem;
-}
-
-.mobile-menu-footer {
-  margin-top: auto;
-}
-
-.mobile-socials {
+.bottom-nav-link {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  flex: 1;
+  height: 100%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.social-icon {
-  width: 44px;
-  height: 44px;
+.bottom-nav-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  color: var(--text-secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bottom-nav-text {
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
   transition: all 0.3s ease;
 }
 
-.social-icon:hover {
+.bottom-nav-link:hover, .bottom-nav-link.active {
   color: var(--accent);
-  border-color: var(--accent);
-  background: var(--accent-glow);
-  transform: translateY(-3px);
 }
 
+.bottom-nav-link.active .bottom-nav-icon {
+  background-color: var(--accent-glow);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.bottom-nav-link.active .bottom-nav-text {
+  color: var(--text-primary);
+}
+
+/* Desktop Styles */
 @media (min-width: 768px) {
+  .nav-actions {
+    gap: 2.5rem;
+  }
+
   .nav-desktop {
     display: flex;
+    align-items: center;
+    gap: 2.5rem;
   }
-  .mobile-menu-btn {
+  
+  .nav-link {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: relative;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--text-primary);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  .nav-btn-sm {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  /* Hide bottom nav on desktop */
+  .mobile-bottom-nav {
     display: none;
   }
 }

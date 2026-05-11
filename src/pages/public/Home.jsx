@@ -6,7 +6,6 @@ import Skills from '../../components/Skills';
 import Projects from '../../components/Projects';
 import Explorations from '../../components/Explorations';
 import Contact from '../../components/Contact';
-import ThemeSwitcher from '../../components/ThemeSwitcher';
 import BackgroundAnimation from '../../components/BackgroundAnimation';
 
 const Home = () => {
@@ -22,7 +21,6 @@ const Home = () => {
         <Explorations />
       </main>
       <Contact />
-      <ThemeSwitcher />
     </>
   );
 };

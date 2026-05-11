@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
-import { Menu, X, Code, Briefcase, Mail, Globe } from 'lucide-react';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import { Home, Briefcase, Code, Monitor, Mail } from 'lucide-react';
+import ThemeSwitcher from './ThemeSwitcher';
 import './Navbar.css';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('about');
   
   const { scrollYProgress } = useScroll();
@@ -39,124 +39,66 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent scroll when mobile menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [isMenuOpen]);
-
   const navLinks = [
-    { name: 'About', href: '#about', id: 'about' },
-    { name: 'Experience', href: '#experience', id: 'experience' },
-    { name: 'Projects', href: '#projects', id: 'projects' },
-    { name: 'Lab', href: '#explorations', id: 'explorations' },
-    { name: 'Contact', href: '#contact', id: 'contact' },
-  ];
-
-  const socialLinks = [
-    { icon: <Code size={20} />, href: 'https://github.com/ariesjmustika' },
-    { icon: <Briefcase size={20} />, href: 'https://linkedin.com/in/ariesjmustika' },
-    { icon: <Globe size={20} />, href: 'https://twitter.com' },
-    { icon: <Mail size={20} />, href: 'mailto:aries@ariesjakaradytia.com' },
+    { name: 'About', href: '#about', id: 'about', icon: <Home size={20} /> },
+    { name: 'Exp', href: '#experience', id: 'experience', icon: <Briefcase size={20} /> },
+    { name: 'Works', href: '#projects', id: 'projects', icon: <Code size={20} /> },
+    { name: 'Lab', href: '#explorations', id: 'explorations', icon: <Monitor size={20} /> },
+    { name: 'Contact', href: '#contact', id: 'contact', icon: <Mail size={20} /> },
   ];
 
   return (
-    <header className={`navbar ${isScrolled ? 'nav-scrolled' : ''}`}>
-      <motion.div 
-        className="scroll-progress" 
-        style={{ scaleX, transformOrigin: "0%" }} 
-        animate={{ opacity: isScrolled ? 1 : 0 }}
-      />
-      
-      <div className="container nav-container">
-        <a href="#about" className="nav-logo">
-          Aries <span className="logo-thin">Jakaradytia Mustika</span>
-        </a>
+    <>
+      <header className={`navbar ${isScrolled ? 'nav-scrolled' : ''}`}>
+        <motion.div 
+          className="scroll-progress" 
+          style={{ scaleX, transformOrigin: "0%" }} 
+          animate={{ opacity: isScrolled ? 1 : 0 }}
+        />
+        
+        <div className="container nav-container">
+          <a href="#about" className="nav-logo">
+            Aries <span className="logo-thin">J.M</span>
+          </a>
 
-        {/* Desktop Nav */}
-        <nav className="nav-desktop">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              className={`nav-link ${activeSection === link.id ? 'active' : ''}`}
-            >
-              {link.name}
-            </a>
-          ))}
-          <a href="#contact" className="btn btn-primary nav-btn-sm">Let's Talk</a>
-        </nav>
-
-        {/* Mobile Nav Toggle */}
-        <button 
-          className={`mobile-menu-btn ${isMenuOpen ? 'active' : ''}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle Menu"
-        >
-          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
-      </div>
-
-      {/* Mobile Nav Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div 
-            className="mobile-menu-overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div 
-              className="mobile-menu"
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            >
-              <div className="mobile-menu-content">
-                <nav className="mobile-nav">
-                  {navLinks.map((link, index) => (
-                    <motion.a 
-                      key={link.name} 
-                      href={link.href} 
-                      className={`mobile-nav-link ${activeSection === link.id ? 'active' : ''}`}
-                      onClick={() => setIsMenuOpen(false)}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 + index * 0.1 }}
-                    >
-                      <span className="nav-number">0{index + 1}</span>
-                      <span className="nav-text">{link.name}</span>
-                    </motion.a>
-                  ))}
-                </nav>
-
-                <motion.div 
-                  className="mobile-menu-footer"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.6 }}
+          <div className="nav-actions">
+            {/* Desktop Nav */}
+            <nav className="nav-desktop">
+              {navLinks.map((link) => (
+                <a 
+                  key={link.name} 
+                  href={link.href} 
+                  className={`nav-link ${activeSection === link.id ? 'active' : ''}`}
                 >
-                  <div className="mobile-socials">
-                    {socialLinks.map((social, i) => (
-                      <a key={i} href={social.href} target="_blank" rel="noopener noreferrer" className="social-icon">
-                        {social.icon}
-                      </a>
-                    ))}
-                  </div>
-                  <a href="#contact" className="btn btn-primary w-full mt-8" onClick={() => setIsMenuOpen(false)}>
-                    Start a Project
-                  </a>
-                </motion.div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+                  {link.name}
+                </a>
+              ))}
+              <a href="#contact" className="btn btn-primary nav-btn-sm">Let's Talk</a>
+            </nav>
+            
+            {/* Theme Switcher always in the top right for mobile/desktop header */}
+            <div className="nav-theme-toggle">
+              <ThemeSwitcher />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Bottom Navigation */}
+      <nav className="mobile-bottom-nav">
+        {navLinks.map((link) => (
+          <a 
+            key={link.name} 
+            href={link.href} 
+            className={`bottom-nav-link ${activeSection === link.id ? 'active' : ''}`}
+            onClick={() => setActiveSection(link.id)}
+          >
+            <div className="bottom-nav-icon">{link.icon}</div>
+            <span className="bottom-nav-text">{link.name}</span>
+          </a>
+        ))}
+      </nav>
+    </>
   );
 };
 
